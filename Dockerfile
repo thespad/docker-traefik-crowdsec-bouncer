@@ -22,6 +22,7 @@ LABEL build_version="Version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thespad"
 LABEL org.opencontainers.image.source="https://github.com/thespad/docker-traefik-crowdsec-bouncer"
 LABEL org.opencontainers.image.url="https://github.com/thespad/docker-traefik-crowdsec-bouncer"
+LABEL org.opencontainers.image.description="An HTTP service to verify requests and bounce them according to decisions made by CrowdSec"
 
 COPY --from=build-env /go/bin/bouncer /app
 
