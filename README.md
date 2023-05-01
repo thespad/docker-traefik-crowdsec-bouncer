@@ -47,7 +47,7 @@ Create a Forward Auth middleware, i.e.
 ```yml
     middleware-crowdsec-bouncer:
       forwardauth:
-        address: http://crowdsec-bouncer-traefik:8080/api/v1/forwardAuth
+        address: http://traefik-crowdsec-bouncer:8080/api/v1/forwardAuth
         trustForwardHeader: true
 ```
 
