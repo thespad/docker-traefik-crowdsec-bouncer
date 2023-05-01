@@ -1,0 +1,19 @@
+name: Build Image On Release
+
+on:
+  release:
+    types: [ published ]
+  pull_request:
+
+jobs:
+  call-workflow:
+    uses: thespad/actions/.github/workflows/build-image.yml@v7
+    with:
+      repo_owner: thespad
+      app_name: "traefik-crowdsec-bouncer"
+      release_type: "github"
+      release_url: "https://api.github.com/repos/thespad/traefik-crowdsec-bouncer"
+      dockerhub_user: "thespad"
+      target-arch: "all"
+    secrets:
+      dockerhub_password: ${{ secrets.DOCKER_PASSWORD }}
