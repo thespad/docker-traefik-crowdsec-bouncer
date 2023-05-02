@@ -6,7 +6,7 @@ FROM docker.io/golang:1.17-alpine as build-env
 RUN apk add git && \
   git clone https://github.com/thespad/traefik-crowdsec-bouncer /go/src/app
 
-WORKDIR /go/src/app/bouncer
+WORKDIR /go/src/app
 
 RUN go get -d -v ./...
 
