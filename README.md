@@ -201,6 +201,7 @@ docker build \
 
 ## Versions
 
+* **02.05.23:** - Bump Go to 1.20 for build stage.
 * **01.05.23:** - Update deps.
 * **01.05.23:** - Restructure repo.
 * **26.04.23:** - Support CF forwarded IP headers.
