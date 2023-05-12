@@ -12,7 +12,7 @@ RUN go get -d -v ./...
 
 RUN go build -o /go/bin/bouncer
 
-FROM ghcr.io/linuxserver/baseimage-alpine:3.17
+FROM ghcr.io/linuxserver/baseimage-alpine:3.18
 
 # set version label
 ARG BUILD_DATE
