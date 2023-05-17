@@ -74,12 +74,14 @@ services:
       - TZ=Europe/London
       - CROWDSEC_BOUNCER_API_KEY=${TRAEFIK_BOUNCER_KEY}
       - CROWDSEC_AGENT_HOST=crowdsec:8080
-      - CROWDSEC_BOUNCER_SCHEME=http
-      - TRUSTED_PROXIES=172.16.0.0/12
-      - PORT=8080
-      - CROWDSEC_BOUNCER_LOG_LEVEL=2 #Optional
+      - CROWDSEC_BOUNCER_SCHEME=http #Optional
+      - TRUSTED_PROXIES=0.0.0.0/0 #Optional
+      - PORT=8080 #Optional
+      - CROWDSEC_BOUNCER_LOG_LEVEL=1 #Optional
+      - GIN_MODE=release #Optional
       - CROWDSEC_BOUNCER_SKIPRFC1918=true #Optional
       - CROWDSEC_BOUNCER_REDIRECT= #Optional
+      - CROWDSEC_BOUNCER_CLOUDFLARE=false #Optional
     ports:
       - 8080:8080
     restart: unless-stopped
@@ -95,12 +97,14 @@ docker run -d \
   -e TZEurope/London \
   -e CROWDSEC_BOUNCER_API_KEY=${TRAEFIK_BOUNCER_KEY} \
   -e CROWDSEC_AGENT_HOST=crowdsec:8080 \
-  -e CROWDSEC_BOUNCER_SCHEME=http \
-  -e TRUSTED_PROXIES=172.16.0.0/12 \
-  -e PORT=8080 \
-  -e CROWDSEC_BOUNCER_LOG_LEVEL=2 `#optional` \
+  -e CROWDSEC_BOUNCER_SCHEME=http `#optional` \
+  -e TRUSTED_PROXIES=0.0.0.0/0 `#optional` \
+  -e PORT=8080 `#optional` \
+  -e CROWDSEC_BOUNCER_LOG_LEVEL=1 `#optional` \
+  -e GIN_MODE=release `#optional` \
   -e CROWDSEC_BOUNCER_SKIPRFC1918=true `#optional` \
   -e CROWDSEC_BOUNCER_REDIRECT= `#optional` \
+  -e CROWDSEC_BOUNCER_CLOUDFLARE=false `#optional` \
   -p 8080:8080 \
   --restart unless-stopped \
   ghcr.io/thespad/traefik-crowdsec-bouncer
@@ -116,14 +120,16 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG America/New_York |
-| `-e CROWDSEC_BOUNCER_API_KEY=` | CrowdSec bouncer API key required to be authorized to request local API (required) |
-| `-e CROWDSEC_AGENT_HOST=` | Host and port of CrowdSec LAPI agent, i.e. crowdsec-agent:8080 (required) |
-| `-e CROWDSEC_BOUNCER_SCHEME=http` | Scheme to query CrowdSec agent. Expected value: `http`, `https`. Default to `http` |
-| `-e TRUSTED_PROXIES=` | IP addresses of upstream proxies. Can accept a list of IP addresses in CIDR format, delimited by ','. Default is `0.0.0.0/0` |
-| `-e PORT=` | Change listening port of web server. Default listen on 8080 |
-| `-e CROWDSEC_BOUNCER_LOG_LEVEL=` | Minimum log level for bouncer. Expected value [zerolog levels](https://pkg.go.dev/github.com/rs/zerolog#readme-leveled-logging). Default to `1` |
-| `-e CROWDSEC_BOUNCER_SKIPRFC1918=` | Don't send RCF1918 (Private) IP addresses to the LAPI to check ban status. Expected value: `true`, `false` . Default to `true` |
-| `-e CROWDSEC_BOUNCER_REDIRECT=` | Optionally redirect instead of giving 403 Forbidden. Accepts relative or absolute URLs but must not be protected by the bouncer or you'll get a redirect loop. Default to `null` |
+| `-e CROWDSEC_BOUNCER_API_KEY=` | CrowdSec bouncer API key (required). |
+| `-e CROWDSEC_AGENT_HOST=` | Host and port of CrowdSec LAPI agent, i.e. crowdsec-agent:8080 (required). |
+| `-e CROWDSEC_BOUNCER_SCHEME=` | Scheme to query CrowdSec agent. Allowed values: `http`, `https`. Default is `http`. |
+| `-e TRUSTED_PROXIES=` | IP addresses of upstream proxies. Can accept a list of IP addresses in CIDR format, delimited by ','. Default is `0.0.0.0/0`. |
+| `-e PORT=` | Change listening port of web server. Default is `8080`. |
+| `-e CROWDSEC_BOUNCER_LOG_LEVEL=` | Minimum log level for bouncer. Allowed values: [zerolog levels](https://pkg.go.dev/github.com/rs/zerolog#readme-leveled-logging). Default is `1`. |
+| `-e GIN_MODE=` | Operational mode for Gin framework. Set to `debug` for noisy log output. Default is `release`. |
+| `-e CROWDSEC_BOUNCER_SKIPRFC1918=` | Don't send RCF1918 (Private) IP addresses to the LAPI to check ban status. Allowed values: `true`, `false` . Default is `true`. |
+| `-e CROWDSEC_BOUNCER_REDIRECT=` | Optionally redirect instead of giving 403 Forbidden. Accepts relative or absolute URLs but must not be protected by the bouncer or you'll get a redirect loop. Default is `null`. |
+| `-e CROWDSEC_BOUNCER_CLOUDFLARE=` | Use the `CF-Connecting-IP` header instead of `X-Forwarded-For`. This is useful if you're using Cloudflare proxying as `CF-Connecting-IP` will contain the real source address rather than the Cloudflare address. Allowed values: `true`, `false` . Default is `false`. |
 
 ## Environment variables from files (Docker secrets)
 
