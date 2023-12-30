@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Building bouncer
-FROM docker.io/golang:1.20-alpine as build-env
+FROM docker.io/golang:1.21-alpine as build-env
 
 RUN apk add git && \
   git clone https://github.com/thespad/traefik-crowdsec-bouncer /go/src/app
@@ -12,7 +12,7 @@ RUN go get -d -v ./...
 
 RUN go build -o /go/bin/bouncer
 
-FROM ghcr.io/linuxserver/baseimage-alpine:3.18
+FROM ghcr.io/linuxserver/baseimage-alpine:3.19
 
 # set version label
 ARG BUILD_DATE
