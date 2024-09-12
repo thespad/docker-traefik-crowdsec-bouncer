@@ -11,6 +11,10 @@
 [![ci](https://img.shields.io/github/actions/workflow/status/thespad/docker-traefik-crowdsec-bouncer/call-baseimage-update.yml?branch=main&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github&label=Check%20For%20Baseimage%20Updates)](https://github.com/thespad/docker-traefik-crowdsec-bouncer/actions/workflows/call-baseimage-update.yml)
 [![ci](https://img.shields.io/github/actions/workflow/status/thespad/docker-traefik-crowdsec-bouncer/call-build-image.yml?labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github&label=Build%20Image)](https://github.com/thespad/docker-traefik-crowdsec-bouncer/actions/workflows/call-build-image.yml)
 
+## DEPRECATION NOTICE
+
+This image is deprecated. We will not offer support for this image and it will not be updated. We recommend switching to an alternative bouncer such as [this plugin-based one](https://github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin/) instead.
+
 [traefik-crowdsec-bouncer](https://github.com/thespad/traefik-crowdsec-bouncer/) is an HTTP service to verify requests and bounce them according to decisions made by CrowdSec. Fork of [https://github.com/fbonalair/traefik-crowdsec-bouncer](https://github.com/fbonalair/traefik-crowdsec-bouncer) with extra features.
 
 ## Supported Architectures
@@ -204,6 +208,7 @@ docker build \
 
 ## Versions
 
+* **12.09.24:** - Deprecate.
 * **30.12.23:** - Rebase to Alpine 3.19.
 * **14.05.23:** - Rebase to Alpine 3.18. Drop support for armhf.
 * **02.05.23:** - Bump Go to 1.20 for build stage.
